@@ -16,6 +16,7 @@
     font-family: 'Georgia', serif;
   }
 
+  /* floating hearts */
   .float {
     position: absolute;
     bottom: -40px;
@@ -63,28 +64,34 @@
     transform: rotateX(180deg);
   }
 
+  /* LETTER (closed state) */
   .letter {
-  position: absolute;
-  background: white;
-  width: 92%;
-  max-height: 70vh;       /* visible letter size */
-  top: 100%;
-  left: 4%;
-  border-radius: 14px;
-  padding: 38px;
-  box-sizing: border-box;
-  text-align: center;
-  transition: all 1.2s ease;
-  z-index: 3;
+    position: absolute;
+    background: white;
+    width: 92%;
+    height: 260px;
+    top: 100%;
+    left: 4%;
+    border-radius: 14px;
+    padding: 36px;
+    box-sizing: border-box;
+    text-align: center;
+    transition: all 1.1s ease;
+    z-index: 3;
+  }
 
-  overflow-y: auto;      /* ✅ allows scrolling */
-}
-
-
+  /* LETTER (open + centered) */
   .container.open .letter {
-  transform: translateY(0);
-}
-
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 85%;
+    max-width: 520px;
+    max-height: 70vh;
+    transform: translate(-50%, -50%);
+    overflow-y: auto;
+    box-shadow: 0 30px 70px rgba(0,0,0,0.35);
+  }
 
   h1 {
     color: #e6005c;
@@ -118,13 +125,12 @@
 
 <body>
 
-<!-- Hearts before opening -->
 <script>
-  const heartEmojis = ["💖","💕","💗","✨"];
+  const hearts = ["💖","💕","💗","✨"];
   for (let i = 0; i < 30; i++) {
     let h = document.createElement("div");
     h.className = "float";
-    h.innerText = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+    h.innerText = hearts[Math.floor(Math.random() * hearts.length)];
     h.style.left = Math.random() * 100 + "vw";
     h.style.fontSize = (18 + Math.random() * 22) + "px";
     h.style.animationDuration = (6 + Math.random() * 6) + "s";
@@ -149,9 +155,7 @@
         and every moment with you stays with me a little longer than the rest.<br><br>
 
         If roses could speak, they’d tell you how effortlessly you make my world brighter.
-        And if hearts had a favorite place, mine would always choose you.
-        This little letter carries one simple truth —
-        you mean more to me than words ever could.<br><br>
+        And if hearts had a favorite place, mine would always choose you.<br><br>
 
         Today, on Rose Day, I give you this rose 🌹
         and with it, a promise of care, laughter,
@@ -167,47 +171,11 @@
   <div class="hint">Tap to open 💌</div>
 </div>
 
-<!-- Rose petals after opening -->
 <script>
-  let petalsStarted = false;
-
   function openLetter() {
-  const container = document.querySelector('.container');
-  const letter = document.querySelector('.letter');
-
-  container.classList.toggle('open');
-
-  // 🌹 Start petals only once
-  if (!petalsStarted) {
-    petalsStarted = true;
-    startPetals();
-  }
-
-  // 💌 Auto-scroll after opening
-  setTimeout(() => {
-    letter.scrollTo({
-      top: 140,
-      behavior: "smooth"
-    });
-  }, 700);
-}
-
-
-  function startPetals() {
-    const petalEmojis = ["🌹","🌸","🥀"];
-    for (let i = 0; i < 35; i++) {
-      let p = document.createElement("div");
-      p.className = "float";
-      p.innerText = petalEmojis[Math.floor(Math.random() * petalEmojis.length)];
-      p.style.left = Math.random() * 100 + "vw";
-      p.style.fontSize = (20 + Math.random() * 24) + "px";
-      p.style.animationDuration = (7 + Math.random() * 6) + "s";
-      document.body.appendChild(p);
-    }
+    document.querySelector('.container').classList.toggle('open');
   }
 </script>
 
 </body>
 </html>
-
-
