@@ -64,19 +64,22 @@
   }
 
   .letter {
-    position: absolute;
-    background: white;
-    width: 92%;
-    height: 260%;
-    top: 100%;
-    left: 4%;
-    border-radius: 14px;
-    padding: 38px;
-    box-sizing: border-box;
-    text-align: center;
-    transition: all 1.2s ease;
-    z-index: 3;
-  }
+  position: absolute;
+  background: white;
+  width: 92%;
+  max-height: 70vh;       /* visible letter size */
+  top: 100%;
+  left: 4%;
+  border-radius: 14px;
+  padding: 38px;
+  box-sizing: border-box;
+  text-align: center;
+  transition: all 1.2s ease;
+  z-index: 3;
+
+  overflow-y: auto;      /* ✅ allows scrolling */
+}
+
 
   .container.open .letter {
     top: -100%;
@@ -168,13 +171,26 @@
   let petalsStarted = false;
 
   function openLetter() {
-    document.querySelector('.container').classList.toggle('open');
+  const container = document.querySelector('.container');
+  const letter = document.querySelector('.letter');
 
-    if (!petalsStarted) {
-      petalsStarted = true;
-      startPetals();
-    }
+  container.classList.toggle('open');
+
+  // 🌹 Start petals only once
+  if (!petalsStarted) {
+    petalsStarted = true;
+    startPetals();
   }
+
+  // 💌 Auto-scroll after opening
+  setTimeout(() => {
+    letter.scrollTo({
+      top: 140,
+      behavior: "smooth"
+    });
+  }, 700);
+}
+
 
   function startPetals() {
     const petalEmojis = ["🌹","🌸","🥀"];
